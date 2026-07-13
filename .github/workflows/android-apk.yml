@@ -10,11 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Nix
-        uses: cachix/install-nix-action@v27
-        with:
-          extra_nix_config: |
-            experimental-features = nix-command flakes
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -24,6 +19,8 @@ jobs:
         uses: android-actions/setup-android@v3
       - name: Install build-tools (zipalign)
         run: sdkmanager "build-tools;34.0.0" && echo "$ANDROID_HOME/build-tools/34.0.0" >> $GITHUB_PATH
+      - name: Make gradlew executable
+        run: chmod +x apps/multiplatform/gradlew
       - name: Build APK (aarch64 only)
         env:
           ARCHES: aarch64
