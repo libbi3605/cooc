@@ -15,7 +15,7 @@ nix_config="sandbox = true
 max-jobs = auto
 experimental-features = nix-command flakes"
 
-commands="nix git curl gradle zip unzip zipalign"
+commands="nix git curl zip unzip zipalign"
 arches="${ARCHES:-aarch64 armv7a}"
 
 arch_map() {
@@ -27,7 +27,7 @@ arch_map() {
 
 nix_install() {
   # Pre-setup nix
-  [ ! -d /nix ] && sudo sh -c "mkdir -p /nix && chown -R $u /nix"
+  sudo sh -c "mkdir -p /nix && chown -R $u /nix"
 
   # Install nix
   curl -sSf "$nix_url" -o "$tmp/nix-install"
