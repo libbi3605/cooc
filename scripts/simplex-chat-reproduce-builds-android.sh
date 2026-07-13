@@ -3,8 +3,8 @@ set -eu
 
 SIMPLEX_KEY='3C:52:C4:FD:3C:AD:1C:07:C9:B0:0A:70:80:E3:58:FA:B9:FE:FC:B8:AF:5A:EC:14:77:65:F1:6D:0F:21:AD:85'
 
-REPO_NAME="simplex-chat"
-REPO="https://github.com/simplex-chat/${REPO_NAME}"
+REPO_NAME="cooc"
+REPO="https://github.com/libbi3605/cooc"
 
 IMAGE_NAME='sx-local-android'
 CONTAINER_NAME='sx-builder-android'
