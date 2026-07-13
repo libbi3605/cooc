@@ -10,9 +10,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build APK via official Docker script
-        run: ./scripts/simplex-chat-reproduce-builds-android.sh
-      - name: Upload APK artifact
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Install build-tools (zipalign)
+        run: sdkmanager "build-tools;34.0.0" && echo "$ANDROID_HOME/build-tools/34.0.0" >> $GITHUB_PATH
+      - name: Build APK (aarch64 only)
+        env:
+          ARCHES: aarch64
+        run: ./scripts/android/build-android.sh 1
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: cooc-android-apk
