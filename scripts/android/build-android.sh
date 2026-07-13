@@ -13,7 +13,9 @@ nix_url="https://releases.nixos.org/nix/$nix_ver/install"
 nix_hash="4fed7db867186c01ce2a2077da4a6950ed16232efbf78d0cd19700cff80559f9"
 nix_config="sandbox = true
 max-jobs = auto
-experimental-features = nix-command flakes"
+experimental-features = nix-command flakes
+substituters = https://cache.nixos.org https://simplex-chat.cachix.org
+trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gRoothQ/R5oic1yR465i6rhdv4iXkWVl2m2KYB/qlm+CZ/V/w= simplex-chat.cachix.org-1:dcnuFyRIm9x8fMd3j7GhuQuRj7x74QGIj7CfHVA2NvM="
 
 commands="nix git curl zip unzip zipalign"
 arches="${ARCHES:-aarch64 armv7a}"
