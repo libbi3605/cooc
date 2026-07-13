@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Docker
-        run: |
-          sudo apt-get update && sudo apt-get install -y docker.io
       - name: Build APK via official Docker script
         run: ./scripts/simplex-chat-reproduce-builds-android.sh
       - name: Upload APK artifact
