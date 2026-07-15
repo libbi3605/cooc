@@ -3,18 +3,12 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Nix
-        uses: cachix/install-nix-action@v27
-        with:
-          nix_path: nixpkgs=channel:nixos-24.05
-          extra_nix_config: |
-            substituters = https://simplex-chat.cachix.org https://cache.nixos.org
-            trusted-public-keys = simplex-chat.cachix.org-1:ySS7A1KSl1uVbVO1hvYy32JZz9o/XX5Xz/j8Hdb8V8= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -22,6 +16,11 @@ jobs:
           java-version: '17'
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+      - name: Install build-tools + licenses
+        run: |
+          yes | sdkmanager --licenses
+          sdkmanager "build-tools;34.0.0"
+          echo "$ANDROID_HOME/build-tools/34.0.0" >> $GITHUB_PATH
       - name: Build APK (aarch64)
         env:
           ARCHES: aarch64
