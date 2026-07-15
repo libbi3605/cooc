@@ -15,7 +15,7 @@ nix_config="sandbox = true
 max-jobs = auto
 experimental-features = nix-command flakes
 substituters = https://cache.nixos.org https://simplex-chat.cachix.org
-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= simplex-chat.cachix.org-1:ySS7A1KSl1uVbVO1hvYy32JZz9o/XX5Xz/j8Hdb8V8="
+trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= simplex-chat.cachix.org-1:dcnuFyRIm9x8fMd3j7GhuQuRj7x74QGIj7CfHVA2NvM="
 
 commands="nix git curl zip unzip zipalign"
 arches="${ARCHES:-aarch64 armv7a}"
