@@ -12,11 +12,9 @@ jobs:
         uses: cachix/install-nix-action@v27
         with:
           nix_path: nixpkgs=channel:nixos-24.05
-      - name: Cachix (SimpleX binary cache)
-        uses: cachix/cachix-action@v14
-        with:
-          name: simplex-chat
-          authToken: ${{ secrets.CACHIX_TOKEN }}
+          extra_nix_config: |
+            substituters = https://simplex-chat.cachix.org https://cache.nixos.org
+            trusted-public-keys = simplex-chat.cachix.org-1:ySS7A1KSl1uVbVO1hvYy32JZz9o/XX5Xz/j8Hdb8V8= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
