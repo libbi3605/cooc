@@ -1,15 +1,22 @@
 name: COOC Android APK
-
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          nix_path: nixpkgs=channel:nixos-24.05
+      - name: Cachix (SimpleX binary cache)
+        uses: cachix/cachix-action@v14
+        with:
+          name: simplex-chat
+          authToken: ${{ secrets.CACHIX_TOKEN }}
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -17,11 +24,7 @@ jobs:
           java-version: '17'
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
-      - name: Install build-tools (zipalign)
-        run: sdkmanager "build-tools;34.0.0" && echo "$ANDROID_HOME/build-tools/34.0.0" >> $GITHUB_PATH
-      - name: Make gradlew executable
-        run: chmod +x apps/multiplatform/gradlew
-      - name: Build APK (aarch64 only)
+      - name: Build APK (aarch64)
         env:
           ARCHES: aarch64
         run: ./scripts/android/build-android.sh 1
