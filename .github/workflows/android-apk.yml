@@ -9,6 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          nix_path: nixpkgs=channel:nixos-24.05
+      - name: Cachix (simplex-chat public cache)
+        uses: cachix/cachix-action@v14
+        with:
+          name: simplex-chat
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
